@@ -19,12 +19,14 @@ auth = getenv("AUTH_TYPE", None)
 if auth == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
+elif auth == 'basic_auth':
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
 
 
 @app.before_request
 def before_req():
     '''run this before the request'''
-    print('Here', request.path)
     if auth is None:
         return
     if not auth.require_auth(request.path, ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']):
