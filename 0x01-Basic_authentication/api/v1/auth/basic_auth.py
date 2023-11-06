@@ -52,7 +52,7 @@ class BasicAuth(Auth):
         if ':' not in decoded_base64_authorization_header:
             return None, None
 
-        details = decoded_base64_authorization_header.split(':')
+        details = decoded_base64_authorization_header.split(':', 1)
 
         return details[0], details[1]
 
