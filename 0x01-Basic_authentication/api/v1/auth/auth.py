@@ -17,6 +17,17 @@ class Auth:
         if path[-1] != '/':
             path = path+'/'
 
+        for i in excluded_paths:
+            if i[-1] == '*':
+                new_ex = i.split('/')
+                new_path = path.split('/')
+
+                if '/'.join(new_path[:-2]) == '/'.join(new_ex[:-1]):
+                    new_ex2 = new_ex[-1].replace('*', '')
+                    new_path2 = new_path[-2]
+                    if new_path2.startswith(new_ex2):
+                        return False
+
         if path in excluded_paths:
             return False
         else:
