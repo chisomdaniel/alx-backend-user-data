@@ -26,7 +26,7 @@ class BasicAuth(Auth):
     def decode_base64_authorization_header(self,
                                            base64_authorization_header: str
                                            ) -> str:
-        '''decode the base64 class'''
+        '''decode the base64 encoding'''
         if base64_authorization_header is None:
             return None
 
@@ -72,5 +72,22 @@ class BasicAuth(Auth):
         for i in users:
             if i.is_valid_password(user_pwd):
                 return i
+
+        return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        '''retrieves the User instance for a request'''
+        header = self.authorization_header(request)
+        encoded, decoded, email, passwd = None, None, None, None
+        if header is not None:
+            encoded = self.extract_base64_authorization_header(header)
+        if encoded:
+            decoded = self.decode_base64_authorization_header(encoded)
+        if decoded:
+            email, passwd = self.extract_user_credentials(decoded)
+        if email and passwd:
+            usr_obj = self.user_object_from_credentials(email, passwd)
+
+            return usr_obj
 
         return None
