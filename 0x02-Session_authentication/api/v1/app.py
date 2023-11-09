@@ -25,8 +25,8 @@ elif auth == 'basic_auth':
 elif auth == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
-# else:
-#    auth = None
+else:
+    auth = None
 
 
 @app.before_request
