@@ -47,8 +47,9 @@ def before_req():
         return
     if auth.authorization_header(request) and auth.session_cookie(request):
         return None, abort(401)
-    # if auth.authorization_header(request) is None:
-    #    abort(401)
+    if not auth.authorization_header(request
+                                     ) or not auth.session_cookie(request):
+        abort(401)
     if auth.current_user(request) is None:
         abort(403)
 
