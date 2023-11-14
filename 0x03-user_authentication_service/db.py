@@ -45,7 +45,7 @@ class DB:
         '''find a user by a property'''
         session = self._session
         if kwargs == {}:
-            raise InvalidRequestError
+            raise NoResultFound
         try:
             user = session.query(User).filter_by(**kwargs).first()
         except InvalidRequestError as e:
