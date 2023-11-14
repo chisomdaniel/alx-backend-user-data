@@ -71,7 +71,7 @@ def profile() -> str:
     if user is None:
         abort(403)
 
-    return jsonify({"email": user.email})
+    return jsonify({"email": user.email}), 200
 
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
@@ -101,7 +101,7 @@ def update_password() -> str:
     except ValueError:
         abort(403)
 
-    return jsonify({"email": email, "message": "Password updated"})
+    return jsonify({"email": email, "message": "Password updated"}), 200
 
 
 if __name__ == "__main__":
