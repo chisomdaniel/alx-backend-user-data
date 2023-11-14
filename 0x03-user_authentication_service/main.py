@@ -20,7 +20,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
     '''log in wrong password'''
     data = {'email': email, 'password': password}
     r = requests.post(url+'/sessions', data=data)
-    print(r.status_code)
+    # print(r.status_code)
     assert r.status_code == 401
 
 
