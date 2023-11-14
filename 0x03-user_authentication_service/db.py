@@ -44,6 +44,8 @@ class DB:
     def find_user_by(self, **kwargs: dict) -> User:
         '''find a user by a property'''
         session = self._session
+        if not kwargs:
+            raise InvalidRequestError
         for key in kwargs.keys():
             if key not in User.__table__.columns.keys():
                 raise InvalidRequestError
