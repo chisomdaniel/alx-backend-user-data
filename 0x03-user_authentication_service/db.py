@@ -41,7 +41,7 @@ class DB:
         session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs) -> User:
+    def find_user_by(self, **kwargs: dict) -> User:
         '''find a user by a property'''
         session = self._session
         if not kwargs:
