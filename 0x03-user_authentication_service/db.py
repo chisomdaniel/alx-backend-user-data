@@ -44,8 +44,12 @@ class DB:
     def find_user_by(self, **kwargs: dict) -> User:
         '''find a user by a property'''
         session = self._session
-        if kwargs == {}:
-            raise NoResultFound
+        q = ['id', 'email', 'hashed_password',
+             'session_id', 'reset_token']
+        for i in kwargs.keys():
+            if i not in q:
+                raise InvalidRequestError
+    
         try:
             user = session.query(User).filter_by(**kwargs).first()
         except InvalidRequestError as e:
