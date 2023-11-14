@@ -44,10 +44,10 @@ class DB:
     def find_user_by(self, **kwargs: dict) -> User:
         '''find a user by a property'''
         session = self._session
-        try:
-            user = session.query(User).filter_by(**kwargs).first()
-        except InvalidRequestError as e:
-            raise e
+        for key in kwargs.keys():
+            if key not in User.__table__.columns.keys():
+                raise InvalidRequestError
+        user = session.query(User).filter_by(**kwargs).first()
         if user is None:
             raise NoResultFound
 
