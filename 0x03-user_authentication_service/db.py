@@ -55,7 +55,7 @@ class DB:
 
         return user
 
-    def update_user(self, user_id: str, **kwargs: dict) -> None:
+    def update_user(self, user_id: str, **kwargs) -> None:
         '''update a user'''
         user = self.find_user_by(id=user_id)
         attr_list = ['id', 'email', 'hashed_password',

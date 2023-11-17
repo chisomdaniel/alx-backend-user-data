@@ -9,7 +9,7 @@ from user import User
 import uuid
 
 
-def _hash_password(password: str) -> Any:
+def _hash_password(password: str) -> bytes:
     '''hash password'''
     bytes = password.encode('utf-8')
     salt = bcrypt.gensalt()
